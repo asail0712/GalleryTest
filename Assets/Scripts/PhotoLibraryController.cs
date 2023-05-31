@@ -7,9 +7,9 @@ using TMPro;
 
 public class PhotoLibraryController : MonoBehaviour
 {
-    public TMP_InputField aa;
+    public TextMeshProUGUI aa;
 
- #if UNITY_IOS && !UNITY_EDITOR
+#if UNITY_IOS && !UNITY_EDITOR
     // 声明插件函数
     [DllImport("__Internal")]
     private static extern void GetPhotosThumbnails();
