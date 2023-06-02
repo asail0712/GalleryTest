@@ -20,7 +20,9 @@ public class GalleryInstaller : MonoBehaviour
     [SerializeField]
     public GameObject ScrollViewContent;
 
-    public static readonly int MAX_PHOTO_NUM        = 30;
+    [SerializeField]
+    public int MAX_PHOTO_NUM        = 30;
+
 #if UNITY_ANDROID && !UNITY_EDITOR
     public static readonly string PHOTO_PATH        = "/storage/emulated/0/DCIM/";
 #elif UNITY_EDITOR
@@ -64,9 +66,9 @@ public class GalleryInstaller : MonoBehaviour
     {
         if (Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead))
         {
-            LoadAndDisplayImages();
-
             Debug.Log("ExternalStorage Read Work");
+
+            LoadAndDisplayImages();
         }
         else
         {
@@ -99,13 +101,13 @@ public class GalleryInstaller : MonoBehaviour
         // 蒐集檔案路徑
         string[] photoFiles = Directory.GetFiles(PHOTO_PATH, FILE_EXTENSION, SearchOption.AllDirectories);
 
-        if(photoFiles.Length > MAX_PHOTO_NUM)
+        // 依照時間由近到遠排序
+        Array.Sort(photoFiles, (a, b) => File.GetLastWriteTime(b).CompareTo(File.GetLastWriteTime(a)));
+
+        if (photoFiles.Length > MAX_PHOTO_NUM)
         {
             Array.Resize(ref photoFiles, MAX_PHOTO_NUM);
         }
-
-        // 依照時間由近到遠排序
-        Array.Sort(photoFiles, (a, b) => File.GetLastWriteTime(b).CompareTo(File.GetLastWriteTime(a)));
 
         foreach (string path in photoFiles)
         {
@@ -113,6 +115,7 @@ public class GalleryInstaller : MonoBehaviour
 
             if (ThubnailPhoto == null)
             {
+                showInfo.text = "Instantiate Fail";
                 continue;
             }
              
@@ -120,10 +123,12 @@ public class GalleryInstaller : MonoBehaviour
 
             if (photoFrame == null)
             {
+                showInfo.text = "No photoFrame";
                 continue;
             }
 
-            photoFrame.SetImgInfo(path, imgWidth, imgHeight);
+            photoFrame.SetImgInfoWithWWWAsync(path, imgWidth, imgHeight);
+            //photoFrame.SetImgInfo(path, imgWidth, imgHeight);
             photoFrame.transform.SetParent(ScrollViewContent.transform);
             photoFrame.GetComponent<RectTransform>().localScale = Vector3.one;
         }
@@ -131,10 +136,12 @@ public class GalleryInstaller : MonoBehaviour
 
     private void OnApplicationFocus(bool bHasFocus)
     {
+#if UNITY_ANDROID && !UNITY_EDITOR
         if(bHasFocus)
         {
             PermissionCallbacks_PermissionGranted("");
         }
+#endif
     }
 
     private void DestroyAllChildren(GameObject targetObj)

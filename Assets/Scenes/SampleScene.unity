@@ -354,6 +354,7 @@ MonoBehaviour:
   showInfo: {fileID: 1511213683}
   ThubnailPhotoPrefab: {fileID: 1088062361296153067, guid: 58650737c6dc2184fb368b1427d73f97, type: 3}
   ScrollViewContent: {fileID: 832636586}
+  MAX_PHOTO_NUM: 25
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
