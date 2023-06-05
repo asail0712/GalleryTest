@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,13 +8,13 @@ using UnityEngine.UI;
 using System.Linq;
 using System.Threading.Tasks;
 
-// Copy Scope Texture¥i¥H°Ñ¦Òªº°µªk
+// Copy Scope Textureå¯ä»¥åƒè€ƒçš„åšæ³•
 // https://www.cnblogs.com/Jason-c/p/14303306.html
 
-// §Ö³t¸ü¤J¹Ï¤ùªº°Ñ¦Ò°µªk
+// å¿«é€Ÿè¼‰å…¥åœ–ç‰‡çš„åƒè€ƒåšæ³•
 // https://forum.unity.com/threads/texture2d-loadimage-too-slow-anyway-to-use-threading-to-speed-it-up.442622/
 
-// Url¸Ì­±¦³ªÅ®æªº°µªk
+// Urlè£¡é¢æœ‰ç©ºæ ¼çš„åšæ³•
 // https://answers.unity.com/questions/225469/unity-not-passing-space-character-to-www-url.html
 public class PhotoFrame : MonoBehaviour
 {
@@ -33,10 +33,10 @@ public class PhotoFrame : MonoBehaviour
 
     public IEnumerator SetImgInfoWithWWWAsync_Internal(string imagePath, int imgWidth, int imgHeight)
     {
-        // ·|¦³¸ô®|¦WºÙªº°İÃD
-        imagePath = imagePath.Replace(" ", "%20");
+        // æœƒæœ‰è·¯å¾‘åç¨±çš„å•é¡Œï¼Œå› æ­¤é€²è¡Œç¶²å€ç·¨ç¢¼
+        string encodedString = Uri.EscapeUriString(imagePath);
 
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + imagePath, false);
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + encodedString, false);
 
         yield return www.SendWebRequest();
 
@@ -58,7 +58,7 @@ public class PhotoFrame : MonoBehaviour
         }
 
         /************************************************
-        * Image Scale³B²z
+        * Image Scaleè™•ç†
         ************************************************/
 
         int sourceImgWidth  = wwwTex.width;
@@ -80,7 +80,7 @@ public class PhotoFrame : MonoBehaviour
     public void SetImgInfo(string imagePath, int imgWidth, int imgHeight)
     {
         /************************************************
-         * Åª¨ú¹Ï¤ù¨ìTexture¸Ì­±
+         * è®€å–åœ–ç‰‡åˆ°Textureè£¡é¢
          ************************************************/
        
         thumbnailImgTex     = new Texture2D(2, 2);
@@ -90,7 +90,7 @@ public class PhotoFrame : MonoBehaviour
         StartCoroutine(CreateThumbnailTexture(thumbnailImgTex, thumbnailSize, thumbnailSize, (value) => photoImg.texture = value));
 
         /************************************************
-        * Image Scale³B²z
+        * Image Scaleè™•ç†
         ************************************************/
         int sourceImgWidth  = thumbnailImgTex.width;
         int sourceImgHeight = thumbnailImgTex.height;
@@ -120,7 +120,7 @@ public class PhotoFrame : MonoBehaviour
     //private void CreateThumbnailTexture(Texture2D originalTexture, int thumbnailWidth, int thumbnailHeight, Action<Texture2D> taskCompletedCallBack)
     private IEnumerator CreateThumbnailTexture(Texture2D originalTexture, int thumbnailWidth, int thumbnailHeight, Action<Texture2D> taskCompletedCallBack)
     {
-        // »s§@ÁY²¤¹Ïªº Texture2D
+        // è£½ä½œç¸®ç•¥åœ–çš„ Texture2D
         Texture2D thumbnailTexture  = new Texture2D(thumbnailWidth, thumbnailHeight);
         Color[] thumbnailPixels     = new Color[thumbnailWidth * thumbnailHeight];
 
@@ -144,7 +144,7 @@ public class PhotoFrame : MonoBehaviour
             //yield return new WaitForSeconds(1.0f);
         }
 
-        // ³]©wÁY²¤¹Ïªº¹³¯À¸ê®Æ¨ÃÀ³¥Î§ó§ï
+        // è¨­å®šç¸®ç•¥åœ–çš„åƒç´ è³‡æ–™ä¸¦æ‡‰ç”¨æ›´æ”¹
         thumbnailTexture.SetPixels(thumbnailPixels);
         thumbnailTexture.Apply();
 
