@@ -27,6 +27,8 @@ public class GalleryInstaller : MonoBehaviour
     public static readonly string PHOTO_PATH        = "/storage/emulated/0/DCIM/";
 #elif UNITY_EDITOR
     public static readonly string PHOTO_PATH        = "C:/Users/Ed-GranDen/Downloads/";
+#else
+    public static readonly string PHOTO_PATH        = "C:/Users/Ed-GranDen/Downloads/";
 #endif
     public static readonly string FILE_EXTENSION    = "*.jpg";
 
