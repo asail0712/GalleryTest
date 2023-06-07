@@ -12,14 +12,14 @@ public class PhotoLibraryController : MonoBehaviour
 #if UNITY_IOS && !UNITY_EDITOR
     // 声明插件函数
     [DllImport("__Internal")]
-    private static extern void GetPhotosThumbnails();
+    private static extern void CheckAuthorizationStatus();
 #endif
 
     // 调用插件函数
     void Start()
     {
 #if UNITY_IOS && !UNITY_EDITOR
-        GetPhotosThumbnails();
+        CheckAuthorizationStatus();
 #endif
     }
 
