@@ -3,8 +3,8 @@
 
 extern "C"
 {
-	void CheckAuthorizationStatus()
-	void UnitySendMessage(const char*);
+	void CheckAuthorizationStatus();
+	void SendMessage(const char*);
 }
 
 @interface PhotoCatcherManager : NSObject
