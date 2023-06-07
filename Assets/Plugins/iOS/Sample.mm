@@ -1,5 +1,14 @@
 ﻿#import "Sample.h"
 
+extern "C" void UnitySendMessage(const char *, const char *, const char *);
+extern "C" 
+{
+    void CheckAuthorizationStatus() 
+    {
+        [[PhotoCatcherManager sharedManager] checkAuthorizationStatus];
+    }
+}
+
 @implementation PhotoCatcherManager
 
 static PhotoCatcherManager *sharedInstance = nil;
@@ -50,21 +59,20 @@ static PhotoCatcherManager *sharedInstance = nil;
 
 - (void)getAllPhoto
 {
-        [self getAllAssetInPhotoAlbumAsync:YES completion:
-            ^(NSArray<PHAsset *> *assets) 
+    [self getAllAssetInPhotoAlbumAsync:YES completion:
+        ^(NSArray<PHAsset *> *assets) 
+        {
+            // 在這裡處理獲取到的照片資源數組
+            for (PHAsset *asset in assets) 
             {
-                // 在這裡處理獲取到的照片資源數組
-                for (PHAsset *asset in assets) 
-                {
-                    // 進行相應的處理
-                    NSLog(@"照片名%@", [asset valueForKey:@"filename"]);
-
-                    UnitySendMessage( "PhotoLibraryController" , "ReceiveThumbnail", [asset valueForKey:@"filename"]);
-                }
-
-                [self processPhotos:assets];
+                // 進行相應的處理
+                NSLog(@"照片名%@", [asset valueForKey:@"filename"]);
+                UnitySendMessage( "PhotoLibraryController" , "ReceiveThumbnail", [asset valueForKey:@"filename"]);
             }
-        ];
+
+            [self processPhotos:assets];
+        }
+    ];
 }
 
 - (void)processPhotos:(NSArray<PHAsset *> *)assets
@@ -147,10 +155,3 @@ extern "C"
         UnitySendMessage( "PhotoLibraryController" , "ReceiveThumbnail", "Test String~~!!!");
     }
 }*/
-extern "C" 
-{
-    void CheckAuthorizationStatus() 
-    {
-        [[PhotoCatcherManager sharedManager] checkAuthorizationStatus];
-    }
-}
