@@ -1,14 +1,14 @@
-﻿#import <Photos/Photos.h>
+﻿#import "Sample.h"
 
 @implementation PhotoCatcherManager
 
+static PhotoCatcherManager *sharedInstance = nil;
+
 + (instancetype)sharedManager 
 {
-    static PhotoCatcherManager *sharedInstance = nil;
     static dispatch_once_t onceToken;
 
-    dispatch_once
-    (
+    dispatch_once(
         &onceToken, 
         ^{
             sharedInstance = [[self alloc] init];
@@ -59,7 +59,7 @@
                     // 進行相應的處理
                     NSLog(@"照片名%@", [asset valueForKey:@"filename"]);
 
-                    UnitySendMessage( "PhotoLibraryController" , "ReceiveThumbnail", [asset valueForKey:@"filename"]);
+                    //UnitySendMessage( "PhotoLibraryController" , "ReceiveThumbnail", [asset valueForKey:@"filename"]);
                 }
 
                 [self processPhotos:assets];
@@ -69,24 +69,19 @@
 
 - (void)processPhotos:(NSArray<PHAsset *> *)assets
 {
-    dispatch_async
-    (
-        dispatch_get_global_queue
-        (
-            DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), 
-            ^{
-                // 在這裡處理照片資源
-                // ...        
-                dispatch_async
-                (
-                    dispatch_get_main_queue(), 
-                    ^{
-                    // 返回結果或執行其他主線程操作
-                    // ...
-                    }
-                );
-            }
-        )
+    dispatch_async(
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), 
+        ^{
+            // 在這裡處理照片資源
+            // ...        
+            dispatch_async(
+                dispatch_get_main_queue(), 
+                ^{
+                // 返回結果或執行其他主線程操作
+                // ...
+                }
+            );
+        }
     );
 }
 
@@ -99,10 +94,8 @@
       
     PHFetchResult *result               = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:option];
       
-    dispatch_async
-    (
-        dispatch_get_global_queue
-        (
+    dispatch_async(
+        dispatch_get_global_queue(
             DISPATCH_QUEUE_PRIORITY_DEFAULT, 
             0
         ), 
@@ -114,8 +107,7 @@
                 }
             ];
         
-            dispatch_async
-            (
+            dispatch_async(
                 dispatch_get_main_queue(), 
                 ^{
                     completion(assets);
