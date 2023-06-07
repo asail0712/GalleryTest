@@ -1,6 +1,5 @@
 ﻿#import "Sample.h"
 
-extern "C" void UnitySendMessage(const char *, const char *, const char *);
 extern "C" 
 {
     void CheckAuthorizationStatus() 

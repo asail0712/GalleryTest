@@ -1,6 +1,8 @@
 ﻿#import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
 
+extern "C" void UnitySendMessage(const char*, const char*, const char*);
+
 @interface PhotoCatcherManager : NSObject
 
 + (instancetype)sharedManager;
