@@ -6,6 +6,11 @@ extern "C"
     {
         [[PhotoCatcherManager sharedManager] checkAuthorizationStatus];
     }
+
+    void SendMessage(const char* msg)
+    {
+        UnitySendMessage("PhotoLibraryController", "ReceiveThumbnail", msg);
+    }
 }
 
 @implementation PhotoCatcherManager
@@ -66,7 +71,7 @@ static PhotoCatcherManager *sharedInstance = nil;
             {
                 // 進行相應的處理
                 NSLog(@"照片名%@", [asset valueForKey:@"filename"]);
-                UnitySendMessage( "PhotoLibraryController" , "ReceiveThumbnail", [asset valueForKey:@"filename"]);
+                //UnitySendMessage( "PhotoLibraryController" , "ReceiveThumbnail", [asset valueForKey:@"filename"]);
             }
 
             [self processPhotos:assets];

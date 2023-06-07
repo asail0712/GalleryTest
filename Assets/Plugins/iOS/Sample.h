@@ -1,7 +1,11 @@
 ﻿#import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
 
-extern "C" void UnitySendMessage(const char*, const char*, const char*);
+extern "C"
+{
+	void CheckAuthorizationStatus()
+	void UnitySendMessage(const char*);
+}
 
 @interface PhotoCatcherManager : NSObject
 
