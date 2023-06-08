@@ -85,9 +85,9 @@ static PhotoCatcherManager *sharedInstance = nil;
             }
 
             [self processPhotos:assets];
+                
+            UnitySendMessage("GalleryInstaller", "ReceiveThumbnail", "Get All Photo Finish !!");
         }
-
-        UnitySendMessage("GalleryInstaller", "ReceiveThumbnail", "Get All Photo Finish !!");
     ];
 }
 
