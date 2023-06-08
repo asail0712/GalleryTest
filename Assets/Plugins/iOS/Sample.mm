@@ -71,6 +71,8 @@ static PhotoCatcherManager *sharedInstance = nil;
 
 - (void)getAllPhoto
 {
+    UnitySendMessage("GalleryInstaller", "ReceiveThumbnail", "Get All Photo !!");
+
     [self getAllAssetInPhotoAlbumAsync:YES completion:
         ^(NSArray<PHAsset *> *assets) 
         {
@@ -84,6 +86,8 @@ static PhotoCatcherManager *sharedInstance = nil;
 
             [self processPhotos:assets];
         }
+
+        UnitySendMessage("GalleryInstaller", "ReceiveThumbnail", "Get All Photo Finish !!");
     ];
 }
 
