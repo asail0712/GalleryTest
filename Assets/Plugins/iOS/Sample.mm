@@ -48,13 +48,15 @@ static PhotoCatcherManager *sharedInstance = nil;
             {
                 if (status == PHAuthorizationStatusAuthorized) 
                 {
+                    NSLog(@"授權成功,開始取出照片");
+
                     // 用户选择授权 doSomthing
                     [self getAllPhoto];
                 } 
                 else 
                 {
                     // 用户选择拒绝 提示去设置界面 授权相册
-                    NSLog(@"请在设置界面, 授权访问相册");
+                    NSLog(@"用戶拒絕授權訪問相冊");
                 }
             }
         ];
@@ -70,8 +72,8 @@ static PhotoCatcherManager *sharedInstance = nil;
             for (PHAsset *asset in assets) 
             {
                 // 進行相應的處理
-                NSLog(@"照片名%@", [asset valueForKey:@"filename"]);
-                //UnitySendMessage( "PhotoLibraryController" , "ReceiveThumbnail", [asset valueForKey:@"filename"]);
+                NSLog(@"照片名稱%@", [asset valueForKey:@" filename"]);
+                SendMessage([asset valueForKey:@"filename"]);
             }
 
             [self processPhotos:assets];
