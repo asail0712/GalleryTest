@@ -40,6 +40,7 @@ static PhotoCatcherManager *sharedInstance = nil;
     
     if (authorizationStatus != PHAuthorizationStatusAuthorized) 
     {
+	UnitySendMessage("GalleryInstaller", "ReceiveThumbnail", "Already Authorization !!");
         //已获得授权 doSomthing
         [self getAllPhoto];
     }
@@ -52,6 +53,7 @@ static PhotoCatcherManager *sharedInstance = nil;
                 if (status == PHAuthorizationStatusAuthorized) 
                 {
                     NSLog(@"授權成功,開始取出照片");
+		    UnitySendMessage("GalleryInstaller", "ReceiveThumbnail", "Authorization Success !!");
 
                     // 用户选择授权 doSomthing
                     [self getAllPhoto];
@@ -60,6 +62,7 @@ static PhotoCatcherManager *sharedInstance = nil;
                 {
                     // 用户选择拒绝 提示去设置界面 授权相册
                     NSLog(@"用戶拒絕授權訪問相冊");
+		    UnitySendMessage("GalleryInstaller", "ReceiveThumbnail", "Authorization Failed !!");
                 }
             }
         ];
@@ -76,7 +79,7 @@ static PhotoCatcherManager *sharedInstance = nil;
             {
                 // 進行相應的處理
                 NSLog(@"照片名稱%@", [asset valueForKey:@" filename"]);
-                UnitySendMessage("PhotoLibraryController", "ReceiveThumbnail", "GGGG8");
+                UnitySendMessage("GalleryInstaller", "ReceiveThumbnail", "GGGG8");
             }
 
             [self processPhotos:assets];
