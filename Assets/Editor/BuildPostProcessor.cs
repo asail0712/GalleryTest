@@ -29,11 +29,10 @@ public class BuildPostProcessor
 			//rootDict.SetBoolean("ITSAppUsesNonExemptEncryption", false);
 			rootDict.SetString("NSPhotoLibraryUsageDescription", "${PRODUCT_NAME} photo use");
 
-
 			File.WriteAllText(plistPath, plist.WriteToString());
 		}
 	}
-
+	/*
 	[PostProcessBuildAttribute(1)]
 	public static void OnPostProcessBuild(BuildTarget target, string path)
 	{
@@ -82,5 +81,5 @@ public class BuildPostProcessor
 			"ENABLE_BITCODE",
 			"false");
 	}
-
+	*/
 }

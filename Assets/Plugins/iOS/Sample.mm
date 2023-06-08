@@ -1,17 +1,20 @@
 ﻿#import "Sample.h"
+#import "UnityInterface.h"
 
+#if defined(__cplusplus)
 extern "C" 
 {
+#endif
     void CheckAuthorizationStatus() 
     {
         [[PhotoCatcherManager sharedManager] checkAuthorizationStatus];
     }
 
-    void SendMessage(const char* msg)
-    {
-        UnitySendMessage("PhotoLibraryController", "ReceiveThumbnail", msg);
-    }
+    void UnitySendMessage(const char* className, const char* methodName, const char* param);
+
+#if defined(__cplusplus)
 }
+#endif
 
 @implementation PhotoCatcherManager
 
@@ -73,7 +76,7 @@ static PhotoCatcherManager *sharedInstance = nil;
             {
                 // 進行相應的處理
                 NSLog(@"照片名稱%@", [asset valueForKey:@" filename"]);
-                SendMessage([asset valueForKey:@"filename"]);
+                UnitySendMessage("PhotoLibraryController", "ReceiveThumbnail", "GGGG8");
             }
 
             [self processPhotos:assets];
@@ -153,11 +156,4 @@ static PhotoCatcherManager *sharedInstance = nil;
 }  */
 
 @end
-/*
-extern "C"
-{   
-    void GetPhotosThumbnails()
-    {
-        UnitySendMessage( "PhotoLibraryController" , "ReceiveThumbnail", "Test String~~!!!");
-    }
-}*/
+

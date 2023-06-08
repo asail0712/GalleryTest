@@ -1,12 +1,6 @@
 ﻿#import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
 
-extern "C"
-{
-	void CheckAuthorizationStatus();
-	void SendMessage(const char*);
-}
-
 @interface PhotoCatcherManager : NSObject
 
 + (instancetype)sharedManager;
