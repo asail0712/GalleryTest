@@ -7,7 +7,8 @@ using TMPro;
 
 public class PhotoLibraryController : MonoBehaviour
 {
-    public TextMeshProUGUI aa;
+    public TextMeshProUGUI picInfo;
+    public TextMeshProUGUI isoInfo;
 
 #if UNITY_IOS && !UNITY_EDITOR
     // 声明插件函数
@@ -23,11 +24,14 @@ public class PhotoLibraryController : MonoBehaviour
 #endif
     }
 
-    // 在原生代码中调用此函数以接收缩略图
-    public void ReceiveThumbnail(string thumbnailData)
-    {
-        // 在此处理收到的缩略图数据
 
-        aa.text = "XDDDD  " + thumbnailData;
+    public void ReceiveISOInfo(string infoStr)
+    {
+        isoInfo.text = "ISO Info  " + infoStr;
     }
+
+	public void ReceivePicInfo(string picInfoStr)
+	{
+        picInfo.text = "Pic Info  " + picInfoStr;
+	}
 }
