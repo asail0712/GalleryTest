@@ -164,13 +164,12 @@ static PhotoCatcherManager *sharedInstance = nil;
     PHFetchResult *result = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:option];  
       
     [result enumerateObjectsUsingBlock:
-        ^(id  _Nonnull obj, NSUInteger idx, BOOLBOOL * _Nonnull stop) 
-        {  
-            PHAsset *asset = (PHAsset *)obj;  
-            NSLog(@"照片名%@", [asset valueForKey:@"filename"]);  
-            [assets addObject:asset];  
+        ^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) 
+        {
+            PHAsset *asset = (PHAsset *)obj;
+            [assets addObject:asset];
         }
-    ];  
+    ];
       
     return assets;  
 }
