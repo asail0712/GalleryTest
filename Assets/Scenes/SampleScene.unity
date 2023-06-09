@@ -305,7 +305,6 @@ GameObject:
   m_Component:
   - component: {fileID: 671778142}
   - component: {fileID: 671778143}
-  - component: {fileID: 671778144}
   m_Layer: 0
   m_Name: GalleryInstaller
   m_TagString: Untagged
@@ -342,22 +341,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   picInfo: {fileID: 1737658203}
   isoInfo: {fileID: 1151467142}
---- !u!114 &671778144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 671778140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2cb01cb4220a54589f0e89a56d3d40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showInfo: {fileID: 1511213683}
-  ThubnailPhotoPrefab: {fileID: 1088062361296153067, guid: 58650737c6dc2184fb368b1427d73f97, type: 3}
-  ScrollViewContent: {fileID: 832636586}
-  MAX_PHOTO_NUM: 25
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -117,7 +117,7 @@ static PhotoCatcherManager *sharedInstance = nil;
     option.sortDescriptors              = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:ascending]];
       
     PHFetchResult *result               = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:option];
-      
+    
     UnitySendMessage("GalleryInstaller", "ReceivePicInfo", "AAAAA");
 
     dispatch_async(
@@ -133,6 +133,12 @@ static PhotoCatcherManager *sharedInstance = nil;
                 }
             ];
         
+            NSUInteger length = [assets count];
+
+            NSString *stringNumber = [NSString stringWithFormat:@"%d", length];
+
+            UnitySendMessage("GalleryInstaller", "ReceivePicInfo", [stringNumber UTF8String]);
+
             dispatch_async(
                 dispatch_get_main_queue(), 
                 ^{
