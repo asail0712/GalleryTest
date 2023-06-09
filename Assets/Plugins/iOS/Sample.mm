@@ -42,7 +42,8 @@ static PhotoCatcherManager *sharedInstance = nil;
     {
 	    UnitySendMessage("GalleryInstaller", "ReceiveISOInfo", "Already Authorization !!");
         //已获得授权 doSomthing
-        [self getAllPhoto];
+        [self getAllGallery];
+        //[self getAllPhoto];
     }
     else if (authorizationStatus == PHAuthorizationStatusNotDetermined) 
     { 
@@ -56,7 +57,9 @@ static PhotoCatcherManager *sharedInstance = nil;
 		            UnitySendMessage("GalleryInstaller", "ReceiveISOInfo", "Authorization Success !!");
 
                     // 用户选择授权 doSomthing
-                    [self getAllPhoto];
+                    
+                    [self getAllGallery];
+                    //[self getAllPhoto];
                 } 
                 else 
                 {
@@ -69,15 +72,29 @@ static PhotoCatcherManager *sharedInstance = nil;
     }
 }  
 
+- (void)getAllGallery
+{
+    PHFetchResult *smartAlbums  = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    NSUInteger length           = [smartAlbums count];
+    NSString *stringNumber      = [NSString stringWithFormat:@"%d", length];
+
+    UnitySendMessage("GalleryInstaller", "ReceivePicInfo", [stringNumber UTF8String]);
+
+    [smartAlbums enumerateObjectsUsingBlock:
+        ^(PHAssetCollection * _Nonnull collection, NSUInteger idx, BOOLBOOL *stop) 
+        {
+            NSLog(@"相册名字:%@", collection.localizedTitle);  
+        }
+    ];  
+}
+
 - (void)getAllPhoto
 {
     UnitySendMessage("GalleryInstaller", "ReceiveISOInfo", "Get All Photo !!");
 
-    NSArray<PHAsset *>* assets = [self getAllAssetInPhotoAblum:YES];
-
-    NSUInteger length = [assets count];
-
-    NSString *stringNumber = [NSString stringWithFormat:@"%d", length];
+    NSArray<PHAsset *>* assets  = [self getAllAssetInPhotoAblum:YES];
+    NSUInteger length           = [assets count];
+    NSString *stringNumber      = [NSString stringWithFormat:@"%d", length];
 
     UnitySendMessage("GalleryInstaller", "ReceivePicInfo", [stringNumber UTF8String]);
 
