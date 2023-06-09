@@ -73,7 +73,15 @@ static PhotoCatcherManager *sharedInstance = nil;
 {
     UnitySendMessage("GalleryInstaller", "ReceiveISOInfo", "Get All Photo !!");
 
-    [self getAllAssetInPhotoAlbumAsync:YES completion:
+    NSArray<PHAsset *>* assets = [self getAllAssetInPhotoAblum:YES;
+
+    NSUInteger length = [assets count];
+
+    NSString *stringNumber = [NSString stringWithFormat:@"%d", length];
+
+    UnitySendMessage("GalleryInstaller", "ReceivePicInfo", [stringNumber UTF8String]);
+
+    /*[self getAllAssetInPhotoAlbumAsync:YES completion:
         ^(NSArray<PHAsset *> *assets) 
         {
             // 在這裡處理獲取到的照片資源數組
@@ -88,7 +96,7 @@ static PhotoCatcherManager *sharedInstance = nil;
                 
             UnitySendMessage("GalleryInstaller", "ReceiveISOInfo", "Get All Photo Finish !!");
         }
-    ];
+    ];*/
 }
 
 - (void)processPhotos:(NSArray<PHAsset *> *)assets
@@ -132,12 +140,6 @@ static PhotoCatcherManager *sharedInstance = nil;
                     [assets addObject:asset];
                 }
             ];
-        
-            NSUInteger length = [assets count];
-
-            NSString *stringNumber = [NSString stringWithFormat:@"%d", length];
-
-            UnitySendMessage("GalleryInstaller", "ReceivePicInfo", [stringNumber UTF8String]);
 
             dispatch_async(
                 dispatch_get_main_queue(), 
@@ -150,7 +152,7 @@ static PhotoCatcherManager *sharedInstance = nil;
 }
 
 #pragma mark - 同步获取相册内所有照片资源  
-/*
+
 - (NSArray<PHAsset *> *)getAllAssetInPhotoAblum:(BOOL)ascending  
 {  
     NSMutableArray<PHAsset *> *assets = [NSMutableArray array];  
@@ -161,14 +163,17 @@ static PhotoCatcherManager *sharedInstance = nil;
       
     PHFetchResult *result = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:option];  
       
-    [result enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOLBOOL * _Nonnull stop) {  
-        PHAsset *asset = (PHAsset *)obj;  
-        NSLog(@"照片名%@", [asset valueForKey:@"filename"]);  
-        [assets addObject:asset];  
-    }];  
+    [result enumerateObjectsUsingBlock:
+        ^(id  _Nonnull obj, NSUInteger idx, BOOLBOOL * _Nonnull stop) 
+        {  
+            PHAsset *asset = (PHAsset *)obj;  
+            NSLog(@"照片名%@", [asset valueForKey:@"filename"]);  
+            [assets addObject:asset];  
+        }
+    ];  
       
     return assets;  
-}  */
+}
 
 @end
 
