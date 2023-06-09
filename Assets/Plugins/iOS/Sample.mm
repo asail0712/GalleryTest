@@ -73,7 +73,7 @@ static PhotoCatcherManager *sharedInstance = nil;
 {
     UnitySendMessage("GalleryInstaller", "ReceiveISOInfo", "Get All Photo !!");
 
-    NSArray<PHAsset *>* assets = [self getAllAssetInPhotoAblum:YES;
+    NSArray<PHAsset *>* assets = [self getAllAssetInPhotoAblum:YES];
 
     NSUInteger length = [assets count];
 
